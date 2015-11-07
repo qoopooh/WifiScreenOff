@@ -1,0 +1,3 @@
+-printseeds seeds.txt
+-printusage unused.txt
+-printmapping mapping.txt

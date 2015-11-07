@@ -31,8 +31,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
 
         saveWifiState(context);
         mEnabled = getEnableState(context);
-        for (int i=0; i<appWidgetIds.length; i++) {
-            int appWidgetId = appWidgetIds[i];
+        for ( int appWidgetId : appWidgetIds ) {
             updateSwitch(context, appWidgetManager, appWidgetId, mEnabled);
         }
 
@@ -53,8 +52,8 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
                 RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.main);
                 remoteViews.setImageViewResource(R.id.image, mEnabled ?
                         R.drawable.sync : R.drawable.sync_enabled);
-                remoteViews.setTextViewText(R.id.text, context.getString(mEnabled ?
-                        R.string.off : R.string.on));
+//                remoteViews.setTextViewText(R.id.text, context.getString(mEnabled ?
+//                        R.string.off : R.string.on));
                 mEnabled = !mEnabled;
                 saveEnabledState(context, mEnabled);
                 if (mEnabled) {
@@ -111,8 +110,8 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
         if (enabled){
             views.setImageViewResource(R.id.image, R.drawable.sync_enabled);
         }
-        views.setTextViewText(R.id.text, context.getString(enabled ?
-                R.string.on : R.string.off));
+//        views.setTextViewText(R.id.text, context.getString(enabled ?
+//                R.string.on : R.string.off));
 
         Intent intent = new Intent(context, WifiScreenOffWidget.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, "" + appWidgetId);

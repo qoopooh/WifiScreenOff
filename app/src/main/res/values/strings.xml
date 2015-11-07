@@ -3,4 +3,5 @@
     <string name="off">Off</string>
     <string name="on">On</string>
     <string name="waring">Wifi will be OFF when close screen</string>
+    <string name="desc">Handle Wifi when screen on / off</string>
 </resources>

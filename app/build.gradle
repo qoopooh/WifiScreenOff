@@ -11,16 +11,33 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        release {
+            storeFile file("keystore.jks")
+            storePassword ""
+            keyAlias "wifi"
+            keyPassword ""
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            shrinkResources true
+            proguardFile file("proguard-project.txt")
+            proguardFile getDefaultProguardFile("proguard-android.txt")
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                def file = variant.outputs[0].outputFile
+                def fileName = file.name.replace("-", "_")
+                fileName = fileName.replace("app_", "")
+                fileName = fileName.replace(".apk", "_" + defaultConfig.versionCode + ".apk")
+                variant.outputs[0].outputFile = new File(file.parent, fileName)
+            }
         }
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-//    testCompile 'junit:junit:4.12'
-//    compile 'com.android.support:appcompat-v7:23.1.0'
 }
