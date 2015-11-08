@@ -14,6 +14,8 @@ import com.berm.widget.BuildConfig;
 public class UpdateService extends Service {
     private static final String TAG = "UpdateService";
 
+    private ScreenReceiver mScreenReceiver = new ScreenReceiver();
+
     @Override
     public IBinder onBind(Intent intent) {
         log("onBind");
@@ -24,16 +26,15 @@ public class UpdateService extends Service {
     public void onCreate() {
         super.onCreate();
         log("onCreate");
-        initReceiver();
-    }
-
-    /**
-     * Initial screen state receiver
-     */
-    private void initReceiver() {
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
-        registerReceiver(new ScreenReceiver(), filter);
+        registerReceiver(mScreenReceiver, filter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mScreenReceiver);
     }
 
     /**
@@ -41,7 +42,7 @@ public class UpdateService extends Service {
      * @param s debug message
      */
     private void log(String s) {
-        if (BuildConfig.DEBUG)
+        //if (BuildConfig.DEBUG)
             Log.i(TAG, s);
     }
 }

@@ -1,0 +1,20 @@
+com.berm.widget.R$dimen: int widget_min_width
+com.berm.widget.R$drawable: int sync
+com.berm.widget.R$drawable: int sync_enabled
+com.berm.widget.R$id: int image
+com.berm.widget.R$id: int widget
+com.berm.widget.R$layout: int main
+com.berm.widget.R$mipmap: int ic_launcher
+com.berm.widget.R$string: int app_name
+com.berm.widget.R$string: int desc
+com.berm.widget.R$string: int disable
+com.berm.widget.R$string: int off
+com.berm.widget.R$string: int on
+com.berm.widget.R$string: int waring
+com.berm.widget.R$xml: int widget
+com.berm.widget.ScreenReceiver
+com.berm.widget.ScreenReceiver: ScreenReceiver()
+com.berm.widget.UpdateService
+com.berm.widget.UpdateService: UpdateService()
+com.berm.widget.WifiScreenOffWidget
+com.berm.widget.WifiScreenOffWidget: WifiScreenOffWidget()

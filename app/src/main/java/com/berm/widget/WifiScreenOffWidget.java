@@ -21,6 +21,8 @@ import com.berm.widget.R;
 public class WifiScreenOffWidget extends AppWidgetProvider {
     private static final String TAG = "WifiScreenOffWidget";
     private static final String ENABLE_STATE = "EN";
+    private static final String DISABLE_COUNT = "DisCount";
+    private static final int NO_WARN_DISABLE_COUNT = 2;
 
     private static boolean mEnabled;
     private static boolean mWifiState;
@@ -49,24 +51,17 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
         if (intent.getAction()==null) {
             Bundle extras = intent.getExtras();
             if (extras != null) {
-                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.main);
-                remoteViews.setImageViewResource(R.id.image, mEnabled ?
-                        R.drawable.sync : R.drawable.sync_enabled);
-//                remoteViews.setTextViewText(R.id.text, context.getString(mEnabled ?
-//                        R.string.off : R.string.on));
+                log("onReceive extras:" + extras.getString(AppWidgetManager.EXTRA_APPWIDGET_ID));
                 mEnabled = !mEnabled;
                 saveEnabledState(context, mEnabled);
-                if (mEnabled) {
-                    Toast.makeText(context, R.string.waring, Toast.LENGTH_LONG)
-                            .show();
-                }
+                showToast(context, mEnabled);
 
+                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.main);
+                remoteViews.setImageViewResource(R.id.image, mEnabled ?
+                        R.drawable.sync_enabled : R.drawable.sync);
                 ComponentName watchWidget = new ComponentName(context, WifiScreenOffWidget.class);
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 appWidgetManager.updateAppWidget(watchWidget, remoteViews);
-
-                WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-                log("wifiManager " + wifiManager.getWifiState());
             }
         }
     }
@@ -122,6 +117,25 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
     }
 
     /**
+     * Show toast message on user clicked
+     * @param context ctx
+     * @param b enabled
+     */
+    private void showToast(Context context, boolean b) {
+        if (b) {
+            Toast.makeText(context, R.string.waring, Toast.LENGTH_LONG)
+                    .show();
+        } else {
+            int count = getDisableCount(context);
+            if (count < NO_WARN_DISABLE_COUNT) {
+                setDisableCount(context, ++count);
+                Toast.makeText(context, R.string.disable, Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    }
+
+    /**
      * Save widget enable state on SharedPreferences
      * @param context context
      * @param enabled widget enable state
@@ -143,11 +157,32 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
     }
 
     /**
+     * Set counter for disable warning
+     * @param context ctx
+     * @param count counter
+     */
+    private void setDisableCount(Context context, int count) {
+        context.getSharedPreferences(TAG, Context.MODE_PRIVATE).edit()
+                .putInt(DISABLE_COUNT, count)
+                .commit();
+    }
+
+    /**
+     * Get disable warning counter
+     * @param context ctx
+     * @return count
+     */
+    private int getDisableCount(Context context) {
+        return context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+                .getInt(DISABLE_COUNT, 0);
+    }
+
+    /**
      * Log debug information
      * @param s debug message
      */
     private void log(String s) {
-        if (BuildConfig.DEBUG)
+        //if (BuildConfig.DEBUG)
             Log.i(TAG, s);
     }
 }

@@ -16,7 +16,7 @@ public class ScreenReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        log(intent.getAction() + " widget:" + WifiScreenOffWidget.isEnabled() + " wifi:" + WifiScreenOffWidget.isWifiOn());
+        log("Widget:" + WifiScreenOffWidget.isEnabled() + " wifi:" + WifiScreenOffWidget.isWifiOn());
         if (!WifiScreenOffWidget.isEnabled())
             return;
 
@@ -24,8 +24,10 @@ public class ScreenReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             WifiScreenOffWidget.saveWifiState(context);
             wifiManager.setWifiEnabled(false);
+            log("Disable wifi");
         } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON) && WifiScreenOffWidget.isWifiOn()) {
             wifiManager.setWifiEnabled(true);
+            log("Enable wifi");
         }
     }
 
@@ -34,7 +36,7 @@ public class ScreenReceiver extends BroadcastReceiver {
      * @param s debug message
      */
     private void log(String s) {
-        if (BuildConfig.DEBUG)
+        //if (BuildConfig.DEBUG)
             Log.i(TAG, s);
     }
 }
