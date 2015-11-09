@@ -8,8 +8,6 @@ com.berm.widget.R$mipmap: int ic_launcher
 com.berm.widget.R$string: int app_name
 com.berm.widget.R$string: int desc
 com.berm.widget.R$string: int disable
-com.berm.widget.R$string: int off
-com.berm.widget.R$string: int on
 com.berm.widget.R$string: int waring
 com.berm.widget.R$xml: int widget
 com.berm.widget.ScreenReceiver
