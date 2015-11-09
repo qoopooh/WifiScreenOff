@@ -13,7 +13,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("keystore.jks")
+            storeFile file("../../keystore/wifi.jks")
             storePassword "berm123"
             keyAlias "wifi"
             keyPassword "wifi123"
