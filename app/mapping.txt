@@ -11,7 +11,7 @@ com.berm.widget.UpdateService -> com.berm.widget.UpdateService:
     void log(java.lang.String) -> a
 com.berm.widget.WifiScreenOffWidget -> com.berm.widget.WifiScreenOffWidget:
     boolean mEnabled -> a
-    boolean mWifiState -> b
+    boolean mWifiEnabled -> b
     void <init>() -> <init>
     void onUpdate(android.content.Context,android.appwidget.AppWidgetManager,int[]) -> onUpdate
     void onReceive(android.content.Context,android.content.Intent) -> onReceive

@@ -25,7 +25,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
     private static final int NO_WARN_DISABLE_COUNT = 2;
 
     private static boolean mEnabled;
-    private static boolean mWifiState;
+    private static boolean mWifiEnabled;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -80,7 +80,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
      */
     public static void saveWifiState(Context context) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        mWifiState = (wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED);
+        mWifiEnabled = (wifiManager.getWifiState() != WifiManager.WIFI_STATE_DISABLED);
     }
 
     /**
@@ -88,7 +88,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
      * @return true if it's ON
      */
     public static boolean isWifiOn() {
-        return mWifiState;
+        return mWifiEnabled;
     }
 
     /**
