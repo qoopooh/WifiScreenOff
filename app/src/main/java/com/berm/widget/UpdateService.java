@@ -14,7 +14,7 @@ import com.berm.widget.BuildConfig;
 public class UpdateService extends Service {
     private static final String TAG = "UpdateService";
 
-    private ScreenReceiver mScreenReceiver = new ScreenReceiver();
+    private WifiScreenOffWidget mScreenReceiver = new WifiScreenOffWidget();
 
     @Override
     public IBinder onBind(Intent intent) {

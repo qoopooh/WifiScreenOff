@@ -9,7 +9,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 23
         versionCode 5
-        versionName "1.1.2"
+        versionName "1.2"
     }
     signingConfigs {
         release {
@@ -30,7 +30,7 @@ android {
             applicationVariants.all { variant ->
                 def file = variant.outputs[0].outputFile
                 def fileName = file.name.replace("-", "_")
-                fileName = fileName.replace("app_", "")
+                fileName = fileName.replace("app_", "wifi_")
                 fileName = fileName.replace(".apk", "_" + defaultConfig.versionCode + ".apk")
                 variant.outputs[0].outputFile = new File(file.parent, fileName)
             }

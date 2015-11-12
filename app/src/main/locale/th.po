@@ -23,8 +23,7 @@ msgctxt "app_name"
 msgid "Wifi Screen Off"
 msgstr "ปิดหน้าจอ ปิดไวไฟ"
 
-#. <string name="off">Off</string>
-#. <string name="on">On</string>
+#. Show toast message when user enable widget
 msgctxt "waring"
 msgid "Wifi will be OFF when close screen"
 msgstr "ไวไฟจะปิดเมื่อคุณปิดหน้าจอ"

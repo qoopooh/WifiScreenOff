@@ -21,8 +21,7 @@ msgctxt "app_name"
 msgid "Wifi Screen Off"
 msgstr ""
 
-#. <string name="off">Off</string>
-#. <string name="on">On</string>
+#. Show toast message when user enable widget
 msgctxt "waring"
 msgid "Wifi will be OFF when close screen"
 msgstr ""

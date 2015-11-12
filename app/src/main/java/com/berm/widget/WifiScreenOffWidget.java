@@ -12,9 +12,6 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.berm.widget.BuildConfig;
-import com.berm.widget.R;
-
 /**
  * A widget for controlling wifi
  */
@@ -63,6 +60,19 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 appWidgetManager.updateAppWidget(watchWidget, remoteViews);
             }
+        } else {
+            if (!isEnabled())
+                return;
+            WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                saveWifiState(context);
+                wifiManager.setWifiEnabled(false);
+                log("Disable wifi");
+            } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON) && isWifiOn()) {
+                wifiManager.setWifiEnabled(true);
+                log("Enable wifi");
+            }
         }
     }
 
@@ -105,8 +115,6 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
         if (enabled){
             views.setImageViewResource(R.id.image, R.drawable.sync_enabled);
         }
-//        views.setTextViewText(R.id.text, context.getString(enabled ?
-//                R.string.on : R.string.off));
 
         Intent intent = new Intent(context, WifiScreenOffWidget.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, "" + appWidgetId);
@@ -182,7 +190,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
      * @param s debug message
      */
     private void log(String s) {
-        //if (BuildConfig.DEBUG)
+//        if (BuildConfig.DEBUG)
             Log.i(TAG, s);
     }
 }
