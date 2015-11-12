@@ -1,0 +1,40 @@
+# French translations for PROJECT.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2015-11-12 14:33+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: fr\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=((((n >= 0 && n <= 2)) && (n != 2)) ? 0 "
+": 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.1.1\n"
+
+msgctxt "app_name"
+msgid "Wifi Screen Off"
+msgstr "Éteindre l'écran, éteignez wifi"
+
+#. <string name="off">Off</string>
+#. <string name="on">On</string>
+msgctxt "waring"
+msgid "Wifi will be OFF when close screen"
+msgstr "Wifi sera OFF lorsque près écran"
+
+msgctxt "desc"
+msgid "Handle Wifi when screen on / off"
+msgstr "Poignée Wifi lorsque l'écran ON / OFF"
+
+msgctxt "disable"
+msgid "Disable"
+msgstr "désactiver"
+

@@ -1,0 +1,39 @@
+# Thai translations for PROJECT.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2015-11-12 14:33+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: th\n"
+"Language-Team: th <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=(0)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.1.1\n"
+
+msgctxt "app_name"
+msgid "Wifi Screen Off"
+msgstr "ปิดหน้าจอ ปิดไวไฟ"
+
+#. <string name="off">Off</string>
+#. <string name="on">On</string>
+msgctxt "waring"
+msgid "Wifi will be OFF when close screen"
+msgstr "ไวไฟจะปิดเมื่อคุณปิดหน้าจอ"
+
+msgctxt "desc"
+msgid "Handle Wifi when screen on / off"
+msgstr "จัดการไวไฟ เมื่อมีการเปิดปิดจอ"
+
+msgctxt "disable"
+msgid "Disable"
+msgstr "ปิดการทำงาน"
+

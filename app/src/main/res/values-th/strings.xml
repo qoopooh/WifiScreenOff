@@ -1,8 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">ปิดหน้าจอ ปิดไวไฟ</string>
-    <!--<string name="off">ปิด</string>-->
-    <!--<string name="on">เปิด</string>-->
-    <string name="waring">ไวไฟจะปิดเมื่อคุณปิดหน้าจอ</string>
-    <string name="desc">จัดการไวไฟ เมื่อมีการเปิดปิดจอ</string>
-    <string name="disable">ปิดการทำงาน</string>
+  <string name="app_name">ปิดหน้าจอ ปิดไวไฟ</string>
+  <string name="waring">ไวไฟจะปิดเมื่อคุณปิดหน้าจอ</string>
+  <string name="desc">จัดการไวไฟ เมื่อมีการเปิดปิดจอ</string>
+  <string name="disable">ปิดการทำงาน</string>
 </resources>
