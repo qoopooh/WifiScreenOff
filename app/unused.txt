@@ -8,8 +8,6 @@ com.berm.widget.R$layout
 com.berm.widget.R$mipmap
 com.berm.widget.R$string
 com.berm.widget.R$xml
-com.berm.widget.ScreenReceiver:
-    private static final java.lang.String TAG
 com.berm.widget.UpdateService:
     private static final java.lang.String TAG
 com.berm.widget.WifiScreenOffWidget:

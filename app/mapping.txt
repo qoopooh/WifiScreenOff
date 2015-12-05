@@ -1,9 +1,5 @@
-com.berm.widget.ScreenReceiver -> com.berm.widget.ScreenReceiver:
-    void <init>() -> <init>
-    void onReceive(android.content.Context,android.content.Intent) -> onReceive
-    void log(java.lang.String) -> a
 com.berm.widget.UpdateService -> com.berm.widget.UpdateService:
-    com.berm.widget.ScreenReceiver mScreenReceiver -> a
+    com.berm.widget.WifiScreenOffWidget mScreenReceiver -> a
     void <init>() -> <init>
     android.os.IBinder onBind(android.content.Intent) -> onBind
     void onCreate() -> onCreate

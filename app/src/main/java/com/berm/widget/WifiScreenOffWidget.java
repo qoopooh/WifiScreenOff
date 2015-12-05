@@ -118,7 +118,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
 
         Intent intent = new Intent(context, WifiScreenOffWidget.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, "" + appWidgetId);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, appWidgetId, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
