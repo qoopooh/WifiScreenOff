@@ -2,7 +2,7 @@
     <string name="app_name">Wifi Screen Off</string>
     <!--<string name="off">Off</string>-->
     <!--<string name="on">On</string>-->
-    <string name="waring">Wifi will be OFF when close screen</string>
-    <string name="desc">Handle Wifi when screen on / off</string>
+    <string name="warning">Wifi will be OFF when close screen</string>
+    <string name="description">Handle Wifi when screen on / off</string>
     <string name="disable">Disable</string>
 </resources>

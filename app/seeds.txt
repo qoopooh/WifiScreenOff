@@ -6,9 +6,9 @@ com.berm.widget.R$id: int widget
 com.berm.widget.R$layout: int main
 com.berm.widget.R$mipmap: int ic_launcher
 com.berm.widget.R$string: int app_name
-com.berm.widget.R$string: int desc
+com.berm.widget.R$string: int description
 com.berm.widget.R$string: int disable
-com.berm.widget.R$string: int waring
+com.berm.widget.R$string: int warning
 com.berm.widget.R$xml: int widget
 com.berm.widget.UpdateService
 com.berm.widget.UpdateService: UpdateService()

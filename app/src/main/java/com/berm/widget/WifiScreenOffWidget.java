@@ -6,6 +6,8 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -117,8 +119,9 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
         }
 
         Intent intent = new Intent(context, WifiScreenOffWidget.class);
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, "" + appWidgetId);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -131,7 +134,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
      */
     private void showToast(Context context, boolean b) {
         if (b) {
-            Toast.makeText(context, R.string.waring, Toast.LENGTH_LONG)
+            Toast.makeText(context, R.string.warning, Toast.LENGTH_LONG)
                     .show();
         } else {
             int count = getDisableCount(context);
@@ -139,6 +142,14 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
                 setDisableCount(context, ++count);
                 Toast.makeText(context, R.string.disable, Toast.LENGTH_SHORT)
                         .show();
+            } else if (BuildConfig.DEBUG) {
+                try {
+                    PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+                    String message = "Disable " + pInfo.versionName + " (" + pInfo.versionCode + ")";
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -190,7 +201,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
      * @param s debug message
      */
     private void log(String s) {
-//        if (BuildConfig.DEBUG)
+        if (BuildConfig.DEBUG)
             Log.i(TAG, s);
     }
 }
