@@ -6,15 +6,13 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.berm.widget.BuildConfig;
-
 /**
  * Starter service
  */
 public class UpdateService extends Service {
     private static final String TAG = "UpdateService";
 
-    private WifiScreenOffWidget mScreenReceiver = new WifiScreenOffWidget();
+    private ScreenReceiver mScreenReceiver;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -26,14 +24,18 @@ public class UpdateService extends Service {
     public void onCreate() {
         super.onCreate();
         log("onCreate");
+
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
+
+        mScreenReceiver = new ScreenReceiver();
         registerReceiver(mScreenReceiver, filter);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        log("onDestroy");
         unregisterReceiver(mScreenReceiver);
     }
 
@@ -42,7 +44,7 @@ public class UpdateService extends Service {
      * @param s debug message
      */
     private void log(String s) {
-        //if (BuildConfig.DEBUG)
+        if (BuildConfig.DEBUG)
             Log.i(TAG, s);
     }
 }

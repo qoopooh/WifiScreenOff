@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -18,19 +17,18 @@ import android.widget.Toast;
  * A widget for controlling wifi
  */
 public class WifiScreenOffWidget extends AppWidgetProvider {
-    private static final String TAG = "WifiScreenOffWidget";
-    private static final String ENABLE_STATE = "EN";
+    public static final String TAG = "WifiScreenOffWidget";
+
+    private static final String WIDGET_ENABLED = "EN";
     private static final String DISABLE_COUNT = "DisCount";
     private static final int NO_WARN_DISABLE_COUNT = 2;
 
     private static boolean mEnabled;
-    private static boolean mWifiEnabled;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-        saveWifiState(context);
         mEnabled = getEnableState(context);
         for ( int appWidgetId : appWidgetIds ) {
             updateSwitch(context, appWidgetManager, appWidgetId, mEnabled);
@@ -50,7 +48,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
         if (intent.getAction()==null) {
             Bundle extras = intent.getExtras();
             if (extras != null) {
-                log("onReceive extras:" + extras.getString(AppWidgetManager.EXTRA_APPWIDGET_ID));
+                log("onReceive extras:" + extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID));
                 mEnabled = !mEnabled;
                 saveEnabledState(context, mEnabled);
                 showToast(context, mEnabled);
@@ -62,46 +60,17 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 appWidgetManager.updateAppWidget(watchWidget, remoteViews);
             }
-        } else {
-            if (!isEnabled())
-                return;
-            WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-
-            if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-                saveWifiState(context);
-                wifiManager.setWifiEnabled(false);
-                log("Disable wifi");
-            } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON) && isWifiOn()) {
-                wifiManager.setWifiEnabled(true);
-                log("Enable wifi");
-            }
         }
     }
 
     /**
-     * Check whether widget is enabled
-     * @return enable state
+     * Check widget enable
+     * @return enabled
      */
     public static boolean isEnabled() {
         return mEnabled;
     }
 
-    /**
-     * Check wifi state
-     * @param context context
-     */
-    public static void saveWifiState(Context context) {
-        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        mWifiEnabled = (wifiManager.getWifiState() != WifiManager.WIFI_STATE_DISABLED);
-    }
-
-    /**
-     * Check wifi state
-     * @return true if it's ON
-     */
-    public static boolean isWifiOn() {
-        return mWifiEnabled;
-    }
 
     /**
      * Update switch view
@@ -161,8 +130,8 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
      */
     private void saveEnabledState(Context context, boolean enabled) {
         context.getSharedPreferences(TAG, Context.MODE_PRIVATE).edit()
-                .putBoolean(ENABLE_STATE, enabled)
-                .commit();
+                .putBoolean(WIDGET_ENABLED, enabled)
+                .apply();
     }
 
     /**
@@ -172,7 +141,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
      */
     private boolean getEnableState(Context context) {
         return context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
-                .getBoolean(ENABLE_STATE, false);
+                .getBoolean(WIDGET_ENABLED, true);
     }
 
     /**

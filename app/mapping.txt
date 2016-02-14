@@ -1,5 +1,11 @@
+com.berm.widget.ScreenReceiver -> com.berm.widget.ScreenReceiver:
+    void <init>() -> <init>
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+    void saveWifiState(android.content.Context) -> a
+    boolean isWifiOn(android.content.Context) -> b
+    void log(java.lang.String) -> a
 com.berm.widget.UpdateService -> com.berm.widget.UpdateService:
-    com.berm.widget.WifiScreenOffWidget mScreenReceiver -> a
+    com.berm.widget.ScreenReceiver mScreenReceiver -> a
     void <init>() -> <init>
     android.os.IBinder onBind(android.content.Intent) -> onBind
     void onCreate() -> onCreate
@@ -7,17 +13,14 @@ com.berm.widget.UpdateService -> com.berm.widget.UpdateService:
     void log(java.lang.String) -> a
 com.berm.widget.WifiScreenOffWidget -> com.berm.widget.WifiScreenOffWidget:
     boolean mEnabled -> a
-    boolean mWifiEnabled -> b
     void <init>() -> <init>
     void onUpdate(android.content.Context,android.appwidget.AppWidgetManager,int[]) -> onUpdate
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
     boolean isEnabled() -> a
-    void saveWifiState(android.content.Context) -> a
-    boolean isWifiOn() -> b
     void updateSwitch(android.content.Context,android.appwidget.AppWidgetManager,int,boolean) -> a
     void showToast(android.content.Context,boolean) -> a
     void saveEnabledState(android.content.Context,boolean) -> b
-    boolean getEnableState(android.content.Context) -> b
+    boolean getEnableState(android.content.Context) -> a
     void setDisableCount(android.content.Context,int) -> a
-    int getDisableCount(android.content.Context) -> c
+    int getDisableCount(android.content.Context) -> b
     void log(java.lang.String) -> a
