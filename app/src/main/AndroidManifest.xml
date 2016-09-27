@@ -25,6 +25,8 @@
                 <action android:name="android.intent.action.ACTION_SCREEN_OFF" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".AlarmReceiver">
+        </receiver>
 
         <service
             android:name=".UpdateService"

@@ -4,4 +4,8 @@
   <string name="warning">ไวไฟจะปิดเมื่อคุณปิดหน้าจอ</string>
   <string name="description">จัดการไวไฟ เมื่อมีการเปิดปิดจอ</string>
   <string name="disable">ปิดการทำงาน</string>
+  <string name="doze">โดซ</string>
+  <string name="doze_description">เปิดไวไฟ 30 วินาที</string>
+  <string name="enable">ใช้งาน</string>
+  <string name="app_version">เวอร์ชัน %s</string>
 </resources>

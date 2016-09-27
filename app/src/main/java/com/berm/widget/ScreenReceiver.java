@@ -1,6 +1,8 @@
 package com.berm.widget;
 
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +10,11 @@ import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import static com.berm.widget.Const.DOZE_COUNT;
 import static com.berm.widget.Const.DOZE_MINUTES;
@@ -21,6 +26,8 @@ import static com.berm.widget.Const.DEVICE_WIFI_ENABLED;
  */
 public class ScreenReceiver extends BroadcastReceiver {
     private static final String TAG = "ScreenReceiver";
+    public static PendingIntent alarmIntent;
+
     private WifiManager mWifiManager;
     private SharedPreferences mSharedPref;
 
@@ -44,10 +51,12 @@ public class ScreenReceiver extends BroadcastReceiver {
             setAlarmManager(context);
             mWifiManager.setWifiEnabled(false);
             log("Disable wifi");
-        } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON) && isWifiOn(context)) {
+        } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
             resetAlarmManager(context);
-            mWifiManager.setWifiEnabled(true);
-            log("Enable wifi");
+            if (isWifiOn(context)) {
+                mWifiManager.setWifiEnabled(true);
+                log("Enable wifi");
+            }
         }
     }
 
@@ -72,7 +81,15 @@ public class ScreenReceiver extends BroadcastReceiver {
      * @param context ctx
      */
     private void resetAlarmManager(Context context) {
+        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
+        // If the alarm has been set, cancel it.
+        if (alarmMgr!= null && alarmIntent != null) {
+            alarmMgr.cancel(alarmIntent);
+            alarmIntent = null;
+        }
+
+        log("resetAlarmManager");
     }
 
     /**
@@ -85,9 +102,15 @@ public class ScreenReceiver extends BroadcastReceiver {
             resetAlarmManager(context);
             return;
         }
-        mSharedPref.edit()
-                .putInt(DOZE_COUNT, 0)
-                .apply();
+
+        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.setAction(AlarmReceiver.ACTION_WIFI_ON);
+        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        long time = SystemClock.elapsedRealtime() + dozeMinutes * 14 * 1000;
+        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, time, alarmIntent);
+
+        log("setAlarmManager " + time);
     }
 
     /**
