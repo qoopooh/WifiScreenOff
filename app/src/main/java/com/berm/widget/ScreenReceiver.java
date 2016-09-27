@@ -4,12 +4,15 @@ import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
+import static com.berm.widget.Const.DOZE_COUNT;
+import static com.berm.widget.Const.DOZE_MINUTES;
 import static com.berm.widget.Const.SHARED_PREFER_TAG;
 import static com.berm.widget.Const.DEVICE_WIFI_ENABLED;
 
@@ -19,6 +22,7 @@ import static com.berm.widget.Const.DEVICE_WIFI_ENABLED;
 public class ScreenReceiver extends BroadcastReceiver {
     private static final String TAG = "ScreenReceiver";
     private WifiManager mWifiManager;
+    private SharedPreferences mSharedPref;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -33,12 +37,15 @@ public class ScreenReceiver extends BroadcastReceiver {
             return;
 
         mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        mSharedPref = context.getSharedPreferences(SHARED_PREFER_TAG, Context.MODE_PRIVATE);
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             saveWifiState(context);
+            setAlarmManager(context);
             mWifiManager.setWifiEnabled(false);
             log("Disable wifi");
         } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON) && isWifiOn(context)) {
+            resetAlarmManager(context);
             mWifiManager.setWifiEnabled(true);
             log("Enable wifi");
         }
@@ -61,13 +68,35 @@ public class ScreenReceiver extends BroadcastReceiver {
     }
 
     /**
+     * Stop alarm manager
+     * @param context ctx
+     */
+    private void resetAlarmManager(Context context) {
+
+    }
+
+    /**
+     * Clear doze counter
+     * @param context context
+     */
+    private void setAlarmManager(Context context) {
+        int dozeMinutes = mSharedPref.getInt(DOZE_MINUTES, -1);
+        if (dozeMinutes < 0) {
+            resetAlarmManager(context);
+            return;
+        }
+        mSharedPref.edit()
+                .putInt(DOZE_COUNT, 0)
+                .apply();
+    }
+
+    /**
      * Check wifi state
      * @param context context
      */
     private void saveWifiState(Context context) {
         boolean on = (mWifiManager.getWifiState() != WifiManager.WIFI_STATE_DISABLED);
-        context.getSharedPreferences(SHARED_PREFER_TAG, Context.MODE_PRIVATE)
-                .edit()
+        mSharedPref.edit()
                 .putBoolean(DEVICE_WIFI_ENABLED, on)
                 .apply();
     }
@@ -78,8 +107,7 @@ public class ScreenReceiver extends BroadcastReceiver {
      * @param context context
      */
     private boolean isWifiOn(Context context) {
-        return context.getSharedPreferences(SHARED_PREFER_TAG, Context.MODE_PRIVATE)
-                .getBoolean(DEVICE_WIFI_ENABLED, false);
+        return mSharedPref.getBoolean(DEVICE_WIFI_ENABLED, false);
     }
 
     /**

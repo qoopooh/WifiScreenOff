@@ -21,21 +21,32 @@
         android:id="@+id/checkBox" />
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/checkBox">
 
         <TextView
             android:text="@string/doze"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
             android:hint="@string/doze_description"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content" />
 
         <Spinner
             android:contentDescription="@string/doze_description"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="3"
             android:layout_height="wrap_content"
             android:id="@+id/spinner" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/version"
+        android:text="@string/app_name"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
