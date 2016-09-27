@@ -13,15 +13,16 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import static com.berm.widget.Const.DISABLE_COUNT;
+import static com.berm.widget.Const.NO_WARN_DISABLE_COUNT;
+import static com.berm.widget.Const.SHARED_PREFER_TAG;
+import static com.berm.widget.Const.WIDGET_ENABLED;
+
 /**
  * A widget for controlling wifi
  */
 public class WifiScreenOffWidget extends AppWidgetProvider {
     public static final String TAG = "WifiScreenOffWidget";
-
-    private static final String WIDGET_ENABLED = "EN";
-    private static final String DISABLE_COUNT = "DisCount";
-    private static final int NO_WARN_DISABLE_COUNT = 2;
 
     private static boolean mEnabled;
 
@@ -71,6 +72,13 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
         return mEnabled;
     }
 
+    /**
+     * Set enable
+     * @param enabled enabled
+     */
+    public static void setEnabled(boolean enabled) {
+        mEnabled = enabled;
+    }
 
     /**
      * Update switch view
@@ -129,7 +137,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
      * @param enabled widget enable state
      */
     private void saveEnabledState(Context context, boolean enabled) {
-        context.getSharedPreferences(TAG, Context.MODE_PRIVATE).edit()
+        context.getSharedPreferences(SHARED_PREFER_TAG, Context.MODE_PRIVATE).edit()
                 .putBoolean(WIDGET_ENABLED, enabled)
                 .apply();
     }
@@ -140,7 +148,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
      * @return widget enable state
      */
     private boolean getEnableState(Context context) {
-        return context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+        return context.getSharedPreferences(SHARED_PREFER_TAG, Context.MODE_PRIVATE)
                 .getBoolean(WIDGET_ENABLED, true);
     }
 
@@ -150,9 +158,9 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
      * @param count counter
      */
     private void setDisableCount(Context context, int count) {
-        context.getSharedPreferences(TAG, Context.MODE_PRIVATE).edit()
+        context.getSharedPreferences(SHARED_PREFER_TAG, Context.MODE_PRIVATE).edit()
                 .putInt(DISABLE_COUNT, count)
-                .commit();
+                .apply();
     }
 
     /**
@@ -161,7 +169,7 @@ public class WifiScreenOffWidget extends AppWidgetProvider {
      * @return count
      */
     private int getDisableCount(Context context) {
-        return context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+        return context.getSharedPreferences(SHARED_PREFER_TAG, Context.MODE_PRIVATE)
                 .getInt(DISABLE_COUNT, 0);
     }
 

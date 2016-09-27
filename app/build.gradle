@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
@@ -13,7 +14,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("../../keystore/wifi.jks")
+            storeFile file("../../android-keystores/wifi.jks")
             storePassword "berm123"
             keyAlias "wifi"
             keyPassword "wifi123"
@@ -46,4 +47,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }
